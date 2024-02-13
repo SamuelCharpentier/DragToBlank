@@ -233,3 +233,5 @@ export class DragToBlank {
 		this.mouseDataManager.clearMouseData();
 	}
 }
+
+(window as any).DragToBlank = DragToBlank;

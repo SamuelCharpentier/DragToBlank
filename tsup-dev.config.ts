@@ -3,11 +3,10 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
 	entry: { dragToBlank: 'src/index.ts' },
 	platform: 'browser',
-	target: 'es5',
-	format: ['cjs'],
-	dts: true,
 	splitting: false,
+	dts: true,
 	sourcemap: true,
+	format: ['iife'],
 	clean: true,
 	minify: false,
 	treeshake: false,
