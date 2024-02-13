@@ -1,10 +1,10 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-	entry: ['src/drag-to-blank.ts'],
+	entry: { dragToBlank: 'src/index.ts' },
 	platform: 'browser',
 	target: 'es5',
-	format: ['esm'],
+	format: ['cjs'],
 	dts: true,
 	splitting: false,
 	sourcemap: true,

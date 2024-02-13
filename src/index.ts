@@ -35,7 +35,7 @@ function isHTMLElement(
 export class DragToBlank {
 	DOMelement: HTMLElement;
 	private mouseDataManager: MouseDataManager;
-	protected defaultClassName = 'drag-to-blank';
+	protected static defaultClassName = 'drag-to-blank';
 	mouseData;
 
 	dragMoveHandler: (event: MouseEvent) => void;
@@ -150,14 +150,14 @@ export class DragToBlank {
 	 * @returns void
 	 * @memberof DragToBlank
 	 */
-	public applyDragToBlank(className?: string): void {
-		document
-			.querySelectorAll(
-				className ?? this.defaultClassName,
-			)
-			.forEach((element) => {
-				new DragToBlank(element as HTMLElement);
-			});
+	static apply(className?: string): void {
+		className = className ?? this.defaultClassName;
+		if (className[0] !== '.')
+			className = `.${className}`;
+		let elements = document.querySelectorAll(className);
+		elements.forEach((element) => {
+			new DragToBlank(element as HTMLElement);
+		});
 	}
 
 	/**
@@ -231,18 +231,5 @@ export class DragToBlank {
 		this.dragMoveHandler = (event: MouseEvent) =>
 			this.handleDragStart(event);
 		this.mouseDataManager.clearMouseData();
-	}
-
-	/**
-	 * Destroys the DragToBlank instance.
-	 *
-	 * @returns void
-	 * @memberof DragToBlank
-	 */
-	destroy(): void {
-		document.removeEventListener(
-			'mousemove',
-			this.boundDragMoveHandler,
-		);
 	}
 }

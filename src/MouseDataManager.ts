@@ -53,8 +53,8 @@ export class MouseDataManager {
 		};
 		if (key === 'dragMove')
 			if (this.data.dragMove === undefined)
-				data = this.initiatedragMove(data);
-			else data = this.appenddragMove(data);
+				data = this.makeFirstDragMove(data);
+			else data = this.appendDragMove(data);
 		return (this.data[key] = data);
 	}
 
@@ -73,21 +73,19 @@ export class MouseDataManager {
 		};
 	}
 
-	private initiatedragMove(
+	private makeFirstDragMove(
 		data: StampedPosition,
 	): LinkedStampedPosition {
-		let newData: LinkedStampedPosition = data;
-		if (this.data.dragMove === undefined) {
-			newData.prev =
+		return {
+			...data,
+			prev:
 				this.data.dragStart ??
 				this.data.mouseDown ??
-				undefined;
-			return newData;
-		}
-		return newData;
+				undefined,
+		};
 	}
 
-	private appenddragMove(
+	private appendDragMove(
 		newValue: StampedPosition,
 	): LinkedStampedPosition {
 		const data: LinkedStampedPosition = {
