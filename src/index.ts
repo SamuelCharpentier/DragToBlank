@@ -36,7 +36,7 @@ export class DragToBlank {
 	DOMelement: HTMLElement;
 	private mouseDataManager: MouseDataManager;
 	protected static defaultClassName = 'drag-to-blank';
-	mouseData;
+	protected mouseData;
 
 	dragMoveHandler: (event: MouseEvent) => void;
 

@@ -98,7 +98,7 @@ All mouse data is stored as an object of type `StampedPosition` which has the fo
 | `timestamp` | `number`                   | The timestamp of the mouse event. |
 | `position`  | `{x : number, y : number}` | The position of the mouse event.  |
 
-The mouse data of dragMove is stored as a `LinkedStampedPosition` objects. It extends the `StampedPosition` type. Its additional properties are:
+The mouse data of dragMove is stored as a `LinkedStampedPosition` object. It extends the `StampedPosition` type. Its additional properties are:
 
 | Property | Type              | Description                                                                                                            |
 | -------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -135,7 +135,7 @@ export class MyDragToBlank extends DragToBlank {
 		super(element);
 	}
 
-	protected dragMove(event: MouseEvent): void {
+	protected override dragMove(event: MouseEvent): void {
 		let mouseDownData = this.mouseData.get('mouseDown');
 		console.log('my mouse move', event, mouseDownData);
 	}

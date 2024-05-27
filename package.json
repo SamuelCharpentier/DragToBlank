@@ -1,9 +1,9 @@
 {
 	"name": "drag-to-blank",
-	"version": "1.0.1",
+	"version": "1.0.4",
 	"description": "DragToBlank class built with TypeScript for front end use. Meant to be extended and used as dependencies.",
-	"main": "./dist/index.js",
-	"module": "./dist/index.mjs",
+	"main": "./dist/index.cjs.js",
+	"module": "./dist/index.esm.js",
 	"types": "./dist/index.d.ts",
 	"files": [
 		"dist"
@@ -32,7 +32,7 @@
 		"typescript-frontend-DragToBlank-class"
 	],
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest",
 		"build": "tsup --config tsup-prod.config.ts",
 		"build:dev": "tsup --config tsup-dev.config.ts",
 		"start": "npm-run-all --parallel build:dev serve:dev",
