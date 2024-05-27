@@ -159,7 +159,7 @@ export class DragToBlank {
 			className = `.${className}`;
 		let elements = document.querySelectorAll(className);
 		elements.forEach((element) => {
-			new DragToBlank(element as HTMLElement);
+			new this(element as HTMLElement);
 		});
 	}
 
