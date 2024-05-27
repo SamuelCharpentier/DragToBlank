@@ -265,7 +265,7 @@ export class DragToBlank {
 		}
 	}
 	static destroyAll(): void {
-		const instances = DragToBlank.instances.slice();
+		const instances = [...DragToBlank.instances];
 		instances.forEach((instance) => {
 			instance.destroy();
 		});
