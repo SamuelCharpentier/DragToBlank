@@ -1,6 +1,6 @@
 {
 	"name": "drag-to-blank",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"description": "DragToBlank class built with TypeScript for front end use. Meant to be extended and used as dependencies.",
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm.js",

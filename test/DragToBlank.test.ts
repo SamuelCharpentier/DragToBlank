@@ -252,4 +252,72 @@ describe('DragToBlank', () => {
 			);
 		});
 	});
+	it('should remove event listeners and instance from instances array when destroyed', () => {
+		const windowRemoveEventListenerSpy = jest.spyOn(
+			window,
+			'removeEventListener',
+		);
+		const elementRemoveEventListenerSpy = jest.spyOn(
+			element,
+			'removeEventListener',
+		);
+		const instanceIndex =
+			DragToBlank.instances.indexOf(instance);
+
+		instance.destroy();
+
+		expect(
+			windowRemoveEventListenerSpy,
+		).toHaveBeenCalled();
+		expect(
+			elementRemoveEventListenerSpy,
+		).toHaveBeenCalled();
+		expect(DragToBlank.instances).not.toContain(
+			instance,
+		);
+		expect(
+			DragToBlank.instances.indexOf(instance),
+		).toBe(-1);
+		expect(instanceIndex).not.toBe(-1);
+	});
+	describe('DragToBlank static destroy', () => {
+		let element1: HTMLElement;
+		let element2: HTMLElement;
+		let instance1: DragToBlank;
+		let instance2: DragToBlank;
+
+		beforeEach(() => {
+			element1 = document.createElement('div');
+			element2 = document.createElement('div');
+			instance1 = new DragToBlank(element1);
+			instance2 = new DragToBlank(element2);
+		});
+
+		it('should destroy the instance associated with the given element', () => {
+			const destroySpy = jest.spyOn(
+				instance1,
+				'destroy',
+			);
+			DragToBlank.destroy(element1);
+			expect(destroySpy).toHaveBeenCalled();
+			expect(DragToBlank.instances).not.toContain(
+				instance1,
+			);
+		});
+
+		it('should destroy all instances', () => {
+			const destroySpy1 = jest.spyOn(
+				instance1,
+				'destroy',
+			);
+			const destroySpy2 = jest.spyOn(
+				instance2,
+				'destroy',
+			);
+			DragToBlank.destroyAll();
+			expect(destroySpy1).toHaveBeenCalled();
+			expect(destroySpy2).toHaveBeenCalled();
+			expect(DragToBlank.instances).toEqual([]);
+		});
+	});
 });

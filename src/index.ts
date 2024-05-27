@@ -235,6 +235,41 @@ export class DragToBlank {
 			this.handleDragStart(event);
 		this.mouseDataManager.clearMouseData();
 	}
+	destroy(): void {
+		// Remove event listeners
+		this.DOMelement.removeEventListener(
+			'mousedown',
+			this.boundMouseDownHandler,
+		);
+		window.removeEventListener(
+			'mouseup',
+			this.boundMouseUpHandler,
+		);
+		window.removeEventListener(
+			'mousemove',
+			this.boundDragMoveHandler,
+		);
+
+		// Remove this instance from the static instances array
+		const index = DragToBlank.instances.indexOf(this);
+		if (index > -1) {
+			DragToBlank.instances.splice(index, 1);
+		}
+	}
+	static destroy(element: HTMLElement): void {
+		const instance = DragToBlank.instances.find(
+			(instance) => instance.DOMelement === element,
+		);
+		if (instance) {
+			instance.destroy();
+		}
+	}
+	static destroyAll(): void {
+		const instances = DragToBlank.instances.slice();
+		instances.forEach((instance) => {
+			instance.destroy();
+		});
+	}
 }
 
 (window as any).DragToBlank = DragToBlank;
