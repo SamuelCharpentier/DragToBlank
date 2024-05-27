@@ -150,21 +150,27 @@ describe('DragToBlank', () => {
 	it('should apply DragToBlank functionality to all elements with the given class name', () => {
 		const defaultClassName = 'drag-to-blank';
 		const customClassName = 'custom-class-name';
-		const element1 = document.createElement('div');
-		element1.classList.add(defaultClassName);
-		const element2 = document.createElement('div');
-		element2.classList.add(defaultClassName);
-		const element3 = document.createElement('div');
-		element3.classList.add(customClassName);
-		document.body.appendChild(element1);
-		document.body.appendChild(element2);
-		document.body.appendChild(element3);
+
+		const elementDefaultClassName =
+			document.createElement('div');
+		elementDefaultClassName.classList.add(
+			defaultClassName,
+		);
+
+		const elementCustomClassName =
+			document.createElement('div');
+		elementCustomClassName.classList.add(
+			customClassName,
+		);
+
+		document.body.appendChild(elementDefaultClassName);
+		document.body.appendChild(elementCustomClassName);
 
 		DragToBlank.apply();
 
 		//trigger all events on each element and check mock console for the class logs
 		consoleSpy.mockClear();
-		fireEvent.mouseDown(element1);
+		fireEvent.mouseDown(elementDefaultClassName);
 		fireEvent.mouseMove(window);
 		fireEvent.mouseMove(window);
 		fireEvent.mouseUp(window);
@@ -178,5 +184,72 @@ describe('DragToBlank', () => {
 		expect(numberOfMatches).toBe(1);
 
 		DragToBlank.apply(customClassName);
+
+		consoleSpy.mockClear();
+		fireEvent.mouseDown(elementCustomClassName);
+		fireEvent.mouseMove(window);
+		fireEvent.mouseMove(window);
+		fireEvent.mouseUp(window);
+		numberOfMatches = consoleSpy.mock.calls.filter(
+			(call) => {
+				return call[0].includes(
+					'placeholderFunction: mouseDown',
+				);
+			},
+		).length;
+		expect(numberOfMatches).toBe(1);
+	});
+
+	describe('instances', () => {
+		it('has a static value', () => {
+			expect(DragToBlank.instances).toContain(
+				instance,
+			);
+		});
+		it('adds DOM element to instances array when instanciated', () => {
+			expect(DragToBlank.instances).toContain(
+				instance,
+			);
+			const defaultClassName = 'drag-to-blank';
+			const customClassName = 'custom-class-name';
+
+			const elementDefaultClassName =
+				document.createElement('div');
+			elementDefaultClassName.classList.add(
+				defaultClassName,
+			);
+
+			const elementCustomClassName =
+				document.createElement('div');
+			elementCustomClassName.classList.add(
+				customClassName,
+			);
+
+			document.body.appendChild(
+				elementDefaultClassName,
+			);
+			document.body.appendChild(
+				elementCustomClassName,
+			);
+
+			DragToBlank.apply();
+
+			expect(DragToBlank.instances).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						DOMelement: elementDefaultClassName,
+					}),
+				]),
+			);
+
+			DragToBlank.apply(customClassName);
+			expect(DragToBlank.instances).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						DOMelement: elementCustomClassName,
+					}),
+				]),
+			);
+		});
 	});
 });

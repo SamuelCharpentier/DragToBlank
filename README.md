@@ -78,7 +78,7 @@ MyDragToBlank.apply('my-DragToBlank-class');
 
 ## API
 
-## Mouse Data
+### Mouse Data
 
 To access mouse data, use the `mouseData` property of the DragToBlank class. Its `get()` method retrieves the mouse data for a given mouse data type. If no data is found for the key, it returns undefined. The keys are as follows:
 
@@ -105,11 +105,12 @@ The mouse data of dragMove is stored as a `LinkedStampedPosition` object. It ext
 | `prev`   | `StampedPosition` | The previous mouse move StampedPosition. On initializing the first node, the value of `dragStart` is assigned to prev. |
 | `next`   | `StampedPosition` | The next mouse move StampedPosition. **On the latest node, this is undefined.**                                        |
 
-### Properties
+### Static Properties
 
-| Property           | Type     | Description                                                                                              |
-| ------------------ | -------- | -------------------------------------------------------------------------------------------------------- |
-| `defaultClassName` | `string` | The default class name to use when applying DragToBlank behavior to elements (defaults to `DragToBlank`) |
+| Property           | Type            | Access           | Description                                                                                              |
+| ------------------ | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `defaultClassName` | `string`        | protected static | The default class name to use when applying DragToBlank behavior to elements (defaults to `DragToBlank`) |
+| `instances`        | `DragToBlank[]` | static           | An array to hold all instances of the DragToBlank class                                                  |
 
 ### Methods
 

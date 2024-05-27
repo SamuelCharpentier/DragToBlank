@@ -35,8 +35,9 @@ function isHTMLElement(
 export class DragToBlank {
 	DOMelement: HTMLElement;
 	private mouseDataManager: MouseDataManager;
-	protected static defaultClassName = 'drag-to-blank';
 	protected mouseData;
+	protected static defaultClassName = 'drag-to-blank';
+	static instances: DragToBlank[] = [];
 
 	dragMoveHandler: (event: MouseEvent) => void;
 
@@ -89,6 +90,8 @@ export class DragToBlank {
 			'mousedown',
 			this.boundMouseDownHandler,
 		);
+
+		DragToBlank.instances.push(this);
 	}
 
 	/**
